@@ -4,28 +4,25 @@ import {
   MenuUnfoldOutlined,
   MenuFoldOutlined,
 } from '@ant-design/icons';
-
+import { connect } from "react-redux";
+import { toggleSiderBar } from "@/store/actions";
 const { Header, Content } = Layout;
 
 
 class Main extends React.Component {
-  state = {
-    collapsed: false,
-  };
+  
 
-  toggle = () => {
-    this.setState({
-      collapsed: !this.state.collapsed,
-    });
-  };
+  
 
   render() {
+
+    const { sidebarCollapsed, toggleSiderBar} = this.props
     return (
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-          {React.createElement(this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
+          {React.createElement(sidebarCollapsed ? MenuUnfoldOutlined : MenuFoldOutlined, {
             className: 'trigger',
-            onClick: this.toggle,
+            onClick: toggleSiderBar,
           })}
         </Header>
         <Content
@@ -45,4 +42,4 @@ class Main extends React.Component {
 }
 
 
-export default Main
+export default connect((state) => state.app, { toggleSiderBar })(Main)
